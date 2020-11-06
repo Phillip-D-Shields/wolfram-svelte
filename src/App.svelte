@@ -1,6 +1,12 @@
 <script>
-  import Input from "./components/Input.svelte";
-  import { replies } from "./stores";
+  import { cheekyReply } from "./request";
+
+  let valueStandardA = "";
+  let currentReply = "";
+
+  function handleClick() {
+    currentReply = cheekyReply(valueStandardA);
+  }
 </script>
 
 <style>
@@ -19,7 +25,7 @@
   }
 
   h3 {
-    color: #ff3e00;
+    color: rgb(48, 146, 3);
     text-transform: uppercase;
     font-size: 2em;
     font-weight: 400;
@@ -33,10 +39,11 @@
 
 <main>
   <h1>Hello Dearie! Welcome to wee morrigans knowledge box</h1>
-  <Input />
-  {#if $replies}
-    {#each $replies as reply}
-      <h3>{reply}</h3>
-    {/each}
-  {/if}
+  <section>
+    <input bind:value={valueStandardA} />
+    <button on:click={handleClick}>Whats your query, dearie?</button>
+
+    <!-- <pre class="status">The dearies weary query: {valueStandardA}</pre> -->
+  </section>
+  <h3>{currentReply || 'waiting...'}</h3>
 </main>
